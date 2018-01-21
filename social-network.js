@@ -122,7 +122,7 @@ var getFollowers = function() {
 
 //console.log(getFollowers());
 
-// return who has most followers over specific AGE receive as parameter
+// Print who has most followers over specific
 var whoHasMostFollowersOverAge = function(ageX) {
   var obj = getFollowers();
   var objNumFollowersOverAge = {};
@@ -179,3 +179,27 @@ var whoFollowsMostOverAge = function(ageX) {
 };
 
 //whoFollowsMostOverAge(30);
+
+var whoIsNotFollowsBack = function() {
+  var objNotFollowsBack = {};
+  for (var key in data) {
+    var arr = [];
+    data[key].follows.forEach(function(element) {
+      if(data[element].follows.indexOf(key) === - 1) {
+        arr.push(element);
+      }
+    });
+    if (arr.length > 0) {
+      objNotFollowsBack[key] = arr;
+    }
+  }
+  console.log("Who follow someone that doesn't follow them back is (are):");
+  for (var k in objNotFollowsBack) {
+    console.log(`* ${data[k].name}: `);
+    objNotFollowsBack[k].forEach(function(element) {
+      console.log(` - ${data[element].name}`);
+    });
+  }
+};
+
+//whoIsNotFollowsBack();
