@@ -150,4 +150,32 @@ var whoHasMostFollowersOverAge = function(ageX) {
   }
 };
 
-//whoHasMostFollowersOverAge(30);
+//whoHasMostFollowersOverAge(30
+
+var whoFollowsMostOverAge = function(ageX) {
+  var objNumFollowsOverAge = {};
+  for (var key in data) {
+    var counter = 0;
+    data[key].follows.forEach(function(element) {
+      if (data[element].age > ageX) {
+        counter++;
+      }
+    });
+    objNumFollowsOverAge[key] = counter;
+  }
+
+  var numMost = 0;
+  for (var id in objNumFollowsOverAge) {
+    if(objNumFollowsOverAge[id] > numMost) {
+      numMost = objNumFollowsOverAge[id];
+    }
+  }
+  console.log(`Who most follows over ${ageX} (n: ${numMost}) is (are):`);
+  for (var k in objNumFollowsOverAge) {
+    if(objNumFollowsOverAge[k] === numMost) {
+      console.log(`  - ${data[k].name}`);
+    }
+  }
+};
+
+//whoFollowsMostOverAge(30);
