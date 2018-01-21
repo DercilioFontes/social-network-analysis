@@ -66,4 +66,39 @@ var whoFollowsMost = function() {
   console.log(`Who follows most people is: ${data[mostFollows].name}`);
 };
 
-whoFollowsMost();
+//whoFollowsMost();
+
+var getNumFollowers = function() {
+  var objFollowers = {};
+  for (var id in data) {
+    var counter = 0;
+    for (var person in data) {
+      data[person].follows.forEach(function(element) {
+        if(id === element) {
+          counter++;
+        }
+      });
+    }
+    objFollowers[id] = counter;
+  }
+  return objFollowers;
+};
+
+
+var whoHasMostFollowers = function() {
+  var obj = getNumFollowers();
+  var numMost = 0;
+  for (var key in obj) {
+    if(obj[key] > numMost) {
+      numMost = obj[key];
+    }
+  }
+  console.log(`Who has most followers (n: ${numMost}) is (are):`);
+  for (var id in obj) {
+    if(obj[id] === numMost) {
+      console.log(`  - ${data[id].name}`);
+    }
+  }
+};
+
+whoHasMostFollowers();
