@@ -203,3 +203,45 @@ var whoIsNotFollowsBack = function() {
 };
 
 //whoIsNotFollowsBack();
+
+var sumArr = function(array) {
+  var sum = 0;
+  for(var i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  return sum;
+};
+
+var printReach = function(object) {
+  console.log(`Reach (f => direct followers, ff => followers of followers):`);
+  for (var id in object) {
+    var sumAll = object[id].f + sumArr(object[id].ff);
+    console.log(`* ${data[id].name} - f: ${object[id].f} + ff: ${sumArr(object[id].ff)} = ${sumAll}`);
+  }
+};
+
+var reach = function() {
+  var obj = getFollowers();
+  var objReach = {};
+  for (var k in obj) {
+    var arr = [];
+    // f: n of direct followers
+    objReach[k] = {};
+    objReach[k].f = obj[k].length;
+    obj[k].forEach(function(element) {
+      // ff: n of followers of followers
+      // checks if a person is follower of someone to remove it
+      if (obj[element].indexOf(k) !== - 1) {
+        arr.push(obj[element].length - 1);
+      } else {
+        arr.push(obj[element].length);
+      }
+      objReach[k].ff = arr;
+    });
+  }
+  // test
+  //console.log(objReach);
+  printReach(objReach);
+};
+
+//reach();
