@@ -101,4 +101,53 @@ var whoHasMostFollowers = function() {
   }
 };
 
-whoHasMostFollowers();
+//whoHasMostFollowers();
+
+// return object with id: array of followers
+var getFollowers = function() {
+  var objFollowers = {};
+  for (var id in data) {
+    var followers = [];
+    for (var person in data) {
+      data[person].follows.forEach(function(element) {
+        if(id === element) {
+          followers.push(person);
+        }
+      });
+    }
+    objFollowers[id] = followers;
+  }
+  return objFollowers;
+};
+
+//console.log(getFollowers());
+
+// return who has most followers over specific AGE receive as parameter
+var whoHasMostFollowersOverAge = function(ageX) {
+  var obj = getFollowers();
+  var objNumFollowersOverAge = {};
+  for (var key in obj) {
+    var counter = 0;
+    obj[key].forEach(function(element) {
+      if (data[element].age > ageX) {
+        counter++;
+      }
+    });
+    objNumFollowersOverAge[key] = counter;
+  }
+
+  var numMost = 0;
+  for (var id in objNumFollowersOverAge) {
+    if(objNumFollowersOverAge[id] > numMost) {
+      numMost = objNumFollowersOverAge[id];
+    }
+  }
+  console.log(`Who has most followers over ${ageX} (n: ${numMost}) is (are):`);
+  for (var k in objNumFollowersOverAge) {
+    if(objNumFollowersOverAge[k] === numMost) {
+      console.log(`  - ${data[k].name}`);
+    }
+  }
+};
+
+//whoHasMostFollowersOverAge(30);
