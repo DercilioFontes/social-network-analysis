@@ -52,5 +52,18 @@ var listAllAndFollowsAndFollowes = function() {
   }
 };
 
-listAllAndFollowsAndFollowes();
+//listAllAndFollowsAndFollowes();
 
+var whoFollowsMost = function() {
+  var mostFollows = null;
+  var n = 0;
+  for (var id in data) {
+    if(data[id].follows.length > n) {
+      n = data[id].follows.length;
+      mostFollows = id;
+    }
+  }
+  console.log(`Who follows most people is: ${data[mostFollows].name}`);
+};
+
+whoFollowsMost();
