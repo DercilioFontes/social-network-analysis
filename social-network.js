@@ -32,15 +32,25 @@ var data = {
 };
 
 
-var listAllAndFollows = function() {
+var listAllAndFollowsAndFollowes = function() {
+  console.log("~ ~ ~ ~ ");
   for (var person in data) {
     console.log(`* ${data[person].name}:`);
     console.log(" Follows: ");
-    var array = data[person].follows;
-    array.forEach(function(key) {
+    data[person].follows.forEach(function(key) {
       console.log(` - ${data[key].name}`);
     });
+    console.log(" Followers: ");
+    for (var id in data) {
+      data[id].follows.forEach(function(element) {
+        if (person === element) {
+          console.log(` + ${data[id].name}`);
+        }
+      });
+    }
+    console.log("~ ~ ~ ~ ");
   }
 };
 
-//listAllAndFollows();
+listAllAndFollowsAndFollowes();
+
